@@ -16,7 +16,7 @@ class ProductControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_returns_all_products()
+    public function test_return_all_products()
     {
 
         Product::factory()->create([
@@ -34,4 +34,27 @@ class ProductControllerTest extends TestCase
             "total" => 1
         ]);
     }
+
+    public function test_return_product_by_id()
+    {
+        Product::factory()->create([
+            "name" => "teste",
+            "description" => "tttttt",
+            "price" => 18.56,
+            "imageUrl" => "http://www.image/image.jpg"
+        ]);
+
+        $response = $this->getJson("/api/product/id/1");
+
+        $response->assertStatus(200);
+
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json->where("name", "teste")
+                ->where("description", "tttttt")
+                ->where("price", 18.56)
+                ->where("imageUrl", "http://www.image/image.jpg")
+                ->etc()
+        );
+    }
+
 }

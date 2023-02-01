@@ -18,4 +18,11 @@ class ProductController extends Controller
 
         return response()->json($product);
     }
+
+    public function productById(Request $request)
+    {
+        $product = $this->productService->getProductById($request["id"]);
+
+        return response()->json($product);
+    }
 }

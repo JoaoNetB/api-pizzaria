@@ -3,8 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use App\Repositories\Contracts\ProductRepositoryInterface;
 
-class ProductRepository implements Contracts\ProductRepositoryInterface
+class ProductRepository implements ProductRepositoryInterface
 {
     protected $entity;
 
@@ -16,5 +17,11 @@ class ProductRepository implements Contracts\ProductRepositoryInterface
     public function getAllProducts()
     {
         return $this->entity->paginate(10);
+    }
+
+
+    public function getProductById($id)
+    {
+        return $this->entity->find($id);
     }
 }

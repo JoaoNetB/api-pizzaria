@@ -27,4 +27,18 @@ class ProductRepositoryTest extends TestCase
 
         $this->assertCount(10, $response);
     }
+
+    public function test_repository_get_product_by_id()
+    {
+        Product::factory(2)->create();
+
+        $product = new Product();
+
+        $productRepository = new ProductRepository($product);
+
+        $response = $productRepository->getProductById(2);
+
+        $this->assertEquals(2, $response->id);
+    }
+
 }

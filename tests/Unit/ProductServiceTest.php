@@ -30,4 +30,19 @@ class ProductServiceTest extends TestCase
 
         $this->assertCount(10, $response);
     }
+
+    public function test_service_get_product_by_id()
+    {
+        Product::factory(2)->create();
+
+        $product = new Product();
+
+        $productRepository = new ProductRepository($product);
+
+        $productService = new ProductService($productRepository);
+
+        $response = $productService->getProductById(2);
+
+        $this->assertEquals(2, $response->id);
+    }
 }
